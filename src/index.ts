@@ -151,7 +151,11 @@ module.exports = class wallet {
                         index: 10
                     }
                 } else if (blockchain === 'ethereum') {
-                    //TODO
+                    addressParams = {
+                        purpose: 44,
+                        coinType: 60,
+                        accountNumber: 0
+                    }
                 }
 
                 log.info(tag,"addressParams: ",addressParams)
@@ -184,7 +188,7 @@ module.exports = class wallet {
                 if(!transaction.addressTo) throw Error("invalid transaction missing.addressTo")
 
                 let unsignedTx:any = {}
-
+                let txInput
                 switch(transaction.blockchain) {
                     case ChainTypes.Bitcoin:
                         log.info(tag,"Bitcoin Tx build!")
@@ -197,7 +201,7 @@ module.exports = class wallet {
                             index: 10
                         }
 
-                        const txInput = {
+                        txInput = {
                             to: transaction.addressTo,
                             value: transaction.amount,
                             wallet:this.HDWallet,
@@ -209,14 +213,18 @@ module.exports = class wallet {
                         log.info(tag,"unsignedTx: ",unsignedTx)
                         break;
                     case ChainTypes.Ethereum:
+                        log.info(tag,"Ethereum Tx build!")
                         const ethBip32Params: BIP32Params = { purpose: 44, coinType: 60, accountNumber: 0 }
-                        unsignedTx = await this.adapters[ChainTypes.Bitcoin].buildSendTransaction({
+
+                        txInput = {
                             to: transaction.addressTo,
-                            value: nativeToBaseAmount('ETH',transaction.amount),
-                            wallet,
+                            value: transaction.amount,
+                            wallet:this.HDWallet,
                             bip32Params: ethBip32Params,
                             chainSpecific: { gasPrice: '0', gasLimit: '0' }
-                        })
+                        }
+                        log.info(tag,"txInput: ",txInput)
+                        unsignedTx = await this.adapters[ChainTypes.Ethereum].buildSendTransaction(txInput)
                         log.info(tag,"unsignedTx: ",unsignedTx)
                         break;
                     default:
@@ -241,7 +249,7 @@ module.exports = class wallet {
                 if(!transaction.blockchain) throw Error("invalid transaction missing blockchain")
                 if(!transaction.unsignedTx) throw Error("invalid transaction missing unsignedTx")
 
-                let signedTx:any = await this.adapters[ChainTypes.Bitcoin].signTransaction({
+                let signedTx:any = await this.adapters[transaction.blockchain].signTransaction({
                     wallet:this.HDWallet,
                     txToSign: transaction.unsignedTx
                 })
