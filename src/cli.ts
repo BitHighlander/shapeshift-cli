@@ -48,6 +48,12 @@ const unchainedUrls = {
     ['ethereum']: {
         httpUrl: 'https://dev-api.ethereum.shapeshift.com',
         wsUrl: 'wss://dev-api.ethereum.shapeshift.com'
+    },
+    ['osmosis']: {
+        // httpUrl: 'https://dev-api.osmosis.shapeshift.com',
+        // wsUrl: 'wss://dev-api.osmosis.shapeshift.com'
+        httpUrl: 'http://localhost:3000',
+        wsUrl: 'wss://localhost:3000'
     }
 }
 
