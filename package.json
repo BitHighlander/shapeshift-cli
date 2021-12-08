@@ -29,8 +29,18 @@
     "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
   },
   "dependencies": {
+    "@babel/runtime": "^7.16.3",
+    "@shapeshiftoss/chain-adapters": "^1.20.1",
+    "@shapeshiftoss/hdwallet-native": "^1.18.4",
+    "@shapeshiftoss/types": "^1.16.1",
+    "@shapeshiftoss/unchained-client": "^3.7.0",
+    "@types/big.js": "^6.1.2",
+    "@types/crypto-js": "^4.0.2",
+    "@types/elliptic": "^6.4.14",
+    "@types/google-protobuf": "^3.15.5",
     "@types/uuid": "^8.3.0",
     "axios": "^0.19.2",
+    "big.js": "^6.1.1",
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
     "cli-table": "^0.3.6",
