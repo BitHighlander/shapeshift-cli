@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.3",
-    "@shapeshiftoss/chain-adapters": "^1.20.1",
+    "@shapeshiftoss/chain-adapters": "^1.21.1",
     "@shapeshiftoss/hdwallet-native": "^1.18.4",
     "@shapeshiftoss/types": "^1.16.1",
     "@shapeshiftoss/unchained-client": "^3.7.0",
@@ -56,7 +56,6 @@
     "find-package-json": "^1.2.0",
     "fs-extra": "^9.0.0",
     "generate-password": "^1.5.1",
-    "google-protobuf": "^3.19.1",
     "inquirer": "^7.3.3",
     "inquirer-promise": "^1.0.0",
     "json-beautify": "^1.1.1",

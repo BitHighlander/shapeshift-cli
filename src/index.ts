@@ -45,6 +45,10 @@ export interface Config {
             httpUrl: string,
             wsUrl: string
         }
+        // [ChainTypes.Osmosis]: {
+        //     httpUrl: string,
+        //     wsUrl: string
+        // }
     }
 }
 
@@ -116,6 +120,7 @@ module.exports = class wallet {
 
                 //blockchains
                 this.blockchains = Object.keys(config.unchainedUrls)
+                log.info(tag,"blockchains: ",this.blockchains)
                 this.chainAdapterManager = new ChainAdapterManager(config.unchainedUrls)
 
                 for(let i = 0; i < this.blockchains.length; i++){

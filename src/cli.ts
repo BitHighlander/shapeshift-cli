@@ -25,7 +25,6 @@ import {
 
 import dotenv from 'dotenv'
 dotenv.config()
-import { ChainAdapterManager } from '@shapeshiftoss/chain-adapters'
 
 //requires
 let WalletClass = require('./index.js')
@@ -49,12 +48,12 @@ const unchainedUrls = {
         httpUrl: 'https://dev-api.ethereum.shapeshift.com',
         wsUrl: 'wss://dev-api.ethereum.shapeshift.com'
     },
-    ['osmosis']: {
-        // httpUrl: 'https://dev-api.osmosis.shapeshift.com',
-        // wsUrl: 'wss://dev-api.osmosis.shapeshift.com'
-        httpUrl: 'http://localhost:3000',
-        wsUrl: 'wss://localhost:3000'
-    }
+    // ['osmosis']: {
+    //     // httpUrl: 'https://dev-api.osmosis.shapeshift.com',
+    //     // wsUrl: 'wss://dev-api.osmosis.shapeshift.com'
+    //     httpUrl: 'http://localhost:3000',
+    //     wsUrl: 'wss://localhost:3000'
+    // }
 }
 
 let config = {
@@ -68,6 +67,7 @@ if(!config.mnemonic) throw Error("Must put a mnemonic into env! CLI_MNEMONIC")
 
 //init wallet offline
 log.info("config: ",config)
+
 let Wallet = new WalletClass('native',config);
 
 /*
@@ -100,6 +100,10 @@ walletCommand
                 blockchain = 'bitcoin'
             } else if(asset === 'ETH'){
                 blockchain = 'ethereum'
+            } else if(asset === 'OSMO'){
+                blockchain = 'osmosis'
+            } else {
+                throw Error("Blockchain not supported!")
             }
 
             //address
@@ -201,58 +205,6 @@ walletCommand
     .action( () => {
         log.info("stake ",process.argv)
     } );
-
-
-// /*
-//     Platform APPs
-//         App ecosystem
-//         Create
-//         Publish
-//         Revoke
-//  */
-//
-// const appCommand = program
-//     .command( 'app' )
-//     .description( 'Create a Pioneer Application' )
-//     .forwardSubcommands();
-//
-// appCommand
-//     .command( 'create' )
-//     .action( () => {
-//         let tag = " | app | "
-//
-//         const questions = [
-//             {
-//                 type: "input",
-//                 name: "appname",
-//                 message: "select an application name",
-//                 default: "sample app",
-//             },
-//             //wallets
-//         ];
-//
-//         inquirer.prompt(questions).then(async function (answers: any) {
-//             //check if name available
-//             log.debug(tag,"answers: ",answers)
-//             //generate template to file
-//             //platform.create(answers.appname)
-//             //create app remote
-//
-//         });
-//     } );
-
-// appCommand
-//     .command( 'ls' )
-//     .action( () => {
-//         //list all apps
-//     } );
-//
-// appCommand
-//     .command( 'publish' )
-//     .action( () => {
-//         let tag = " | app | "
-//         //push to app store
-//     } );
 
 
 /*
